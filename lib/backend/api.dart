@@ -18,9 +18,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
   static Color appcolor = const Color(0xFFFFD539);
-  static Color subcolor = Color(0xFF09255d);
+  static Color subcolor = Color.fromARGB(255, 254, 144, 1);
   static Color backcolor = const Color(0xfff6f7fe);
   static Color textcolor = Colors.black;
+  static Color linkcolor = Colors.blue;
   static Color whitetextcolor = Colors.white;
   static Color bordercolor = Color(0xFF09255d);
   static Color buttoncolor = Color(0xFF09255d);
