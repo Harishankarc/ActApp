@@ -12,6 +12,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
+import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -223,7 +228,10 @@ class API {
     String hintText = 'Select',
     double width = double.infinity,
     double height = 50,
-    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: 12),
+    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
+      horizontal: 10,
+      vertical: 12,
+    ),
   }) {
     return SizedBox(
       width: width,
@@ -233,7 +241,7 @@ class API {
           isExpanded: true,
           hint: Text(
             hintText,
-            style: const TextStyle(fontSize: 14, color: Colors.grey),
+            style:  TextStyle(fontSize: 14, color: Colors.black87, fontWeight: FontWeight.w400),
           ),
           items: items
               .map(
@@ -241,7 +249,7 @@ class API {
                   value: item,
                   child: Text(
                     item.toString(),
-                    style: const TextStyle(fontSize: 14, color: Colors.black),
+                    style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
                   ),
                 ),
               )
@@ -249,22 +257,17 @@ class API {
           value: selectedItem,
           onChanged: onChanged,
           buttonStyleData: ButtonStyleData(
-            padding: padding,
+            padding: const EdgeInsets.only(left: 0,right: 10, top: 12,bottom: 12),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.grey.shade300),
-              color: Colors.white,
+              color: const Color(0xFFF5F5F5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(style: BorderStyle.none),
             ),
           ),
           dropdownStyleData: DropdownStyleData(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(0),
-                topRight: Radius.circular(0),
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(8),
-              ),
-              color: Colors.white.withOpacity(0.6),
+              color: const Color(0xFFF5F5F5),
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
           menuItemStyleData: const MenuItemStyleData(height: 40),
@@ -272,4 +275,49 @@ class API {
       ),
     );
   }
+
+  static Widget buildMultiSelect<T>({
+    required List<T> items,
+    required List<T> selectedItems,
+    required Function(List<T>) onConfirm,
+    String hintText = 'Select',
+  }) {
+    return Theme(
+      data: ThemeData(
+        dialogTheme: DialogThemeData(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          )
+        ),
+      ),
+      child: MultiSelectDialogField<T>(
+        items: items
+            .map((item) => MultiSelectItem<T>(item, item.toString()))
+            .toList(),
+        listType: MultiSelectListType.LIST,
+        initialValue: selectedItems,
+        selectedColor: Colors.green.shade600,
+        title: Text(hintText,
+          style: const TextStyle(fontSize: 14, color: Colors.black87),
+        ),
+        buttonIcon: Icon(Icons.arrow_drop_down_outlined, color: Colors.grey.shade600),
+        buttonText: Text(
+          hintText,
+          style: const TextStyle(fontSize: 14, color: Colors.black87),
+        ),
+        onConfirm: onConfirm,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF5F5F5),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(style: BorderStyle.none),
+        ),
+        chipDisplay: MultiSelectChipDisplay(
+          chipColor: Colors.grey.shade200,
+          textStyle: const TextStyle(fontSize: 12, color: Colors.black),
+        ),
+      ),
+    );
+  }
+
 }

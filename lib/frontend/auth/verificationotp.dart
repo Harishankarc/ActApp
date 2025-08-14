@@ -46,7 +46,7 @@ class _VerificationOtpState extends State<VerificationOtp> {
               height: 36,
               width: 36,
               decoration: BoxDecoration(
-                color: API.cardbg,
+                color: API.cardbg.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: const Icon(Icons.arrow_back, size: 20),
