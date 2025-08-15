@@ -18,7 +18,7 @@ class _UpcomingInterviewBoxState extends State<UpcomingInterviewBox> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 80,
+      height: 90,
       decoration: BoxDecoration(
         color: API.cardcolor,
         borderRadius: BorderRadius.circular(8),

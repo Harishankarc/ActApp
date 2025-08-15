@@ -1,4 +1,7 @@
 import 'package:actapp/backend/api.dart';
+import 'package:actapp/frontend/navigation/layout.dart';
+import 'package:actapp/frontend/other/addprofilepicture.dart';
+import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appCheckBox.dart';
 import 'package:actapp/widgets/appText.dart';
@@ -44,15 +47,20 @@ class _ProfileInfo3State extends State<ProfileInfo3> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: Center(
-            child: Container(
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                color: API.cardbg.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.0),
+          child: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Center(
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: API.cardbg.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Icon(Icons.arrow_back, size: 20),
               ),
-              child: Icon(Icons.arrow_back, size: 20),
             ),
           ),
         ),
@@ -261,7 +269,13 @@ class _ProfileInfo3State extends State<ProfileInfo3> {
                               ),
                               AppButton(
                                 text: "Next",
-                                onPressed: () {},
+                                onPressed: () {
+                            slideRightWidget(
+                                    newPage: AddProfilePicture(),
+                                    context: context,
+                                  );
+
+                                },
                                 width: 100,
                               ),
                             ],

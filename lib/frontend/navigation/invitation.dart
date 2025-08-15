@@ -138,7 +138,7 @@ class _InvitationState extends State<Invitation> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SlidingSegmentedControl(
+                  SlidingSegmentedControlInvitation(
                     onClicked: (val) {
                       setState(() {
                         selectedIndex = val;

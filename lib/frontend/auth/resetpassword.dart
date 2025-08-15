@@ -14,15 +14,20 @@ class ResetPassword extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: Center(
-            child: Container(
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                color: API.cardbg,
-                borderRadius: BorderRadius.circular(10.0),
+          child: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Center(
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: API.cardbg,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Icon(Icons.arrow_back, size: 20),
               ),
-              child: Icon(Icons.arrow_back, size: 20),
             ),
           ),
         ),

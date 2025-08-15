@@ -1,4 +1,6 @@
 import 'package:actapp/backend/api.dart';
+import 'package:actapp/frontend/other/upgradetopremium.dart';
+import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appCheckBox.dart';
 import 'package:actapp/widgets/appText.dart';
@@ -22,13 +24,25 @@ class _AddProfilePictureState extends State<AddProfilePicture> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppText.subtitle("Add Profile Picture"),
-            SizedBox(width: 5),
-            AppText.subtitle("*", color: Colors.red),
-          ],
+        title: AppText.subtitle("Add Profile Picture *"),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Center(
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: API.cardbg.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Icon(Icons.arrow_back, size: 20),
+              ),
+            ),
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -218,7 +232,6 @@ class _AddProfilePictureState extends State<AddProfilePicture> {
                           decoration: BoxDecoration(
                             color: Colors.grey.shade200,
                             borderRadius: BorderRadius.circular(15),
-
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -237,7 +250,7 @@ class _AddProfilePictureState extends State<AddProfilePicture> {
                                     color: Colors.black87,
                                     weight: FontWeight.normal,
                                   ),
-                                  SizedBox(width: 5,),
+                                  SizedBox(width: 5),
                                   AppText.verysmalltitle(
                                     '*',
                                     color: Colors.red,
@@ -255,7 +268,10 @@ class _AddProfilePictureState extends State<AddProfilePicture> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      AppText.verysmalltitle("Upload performance video (less than 2 minutes)",weight: FontWeight.normal,),
+                      AppText.verysmalltitle(
+                        "Upload performance video (less than 2 minutes)",
+                        weight: FontWeight.normal,
+                      ),
                       SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -303,9 +319,7 @@ class _AddProfilePictureState extends State<AddProfilePicture> {
                                       width: 70,
                                       decoration: BoxDecoration(
                                         color: API.cardbg,
-                                        borderRadius: BorderRadius.circular(
-                                          15,
-                                        ),
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Center(
                                         child: Icon(
@@ -420,7 +434,12 @@ class _AddProfilePictureState extends State<AddProfilePicture> {
                         height: 50,
                         width: double.infinity,
                         borderRadius: 10,
-                        onPressed: () {},
+                        onPressed: () {
+                          slideRightWidget(
+                            newPage: UpdrageToPremium(),
+                            context: context,
+                          );
+                        },
                       ),
                     ],
                   ),

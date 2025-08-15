@@ -1,4 +1,6 @@
 import 'package:actapp/backend/api.dart';
+import 'package:actapp/frontend/navigation/layout.dart';
+import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appText.dart';
 import 'package:actapp/widgets/appTextFeild.dart';
@@ -14,15 +16,20 @@ class UpdrageToPremium extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: Center(
-            child: Container(
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                color: API.cardbg,
-                borderRadius: BorderRadius.circular(10.0),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Center(
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: API.cardbg,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Icon(Icons.arrow_back, size: 20),
               ),
-              child: Icon(Icons.arrow_back, size: 20),
             ),
           ),
         ),
@@ -331,13 +338,21 @@ class UpdrageToPremium extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 100),
-              AppButton(text: "INR 150/Mt Make Payment", onPressed: () {}),
+              AppButton(
+                text: "INR 150/Mt Make Payment",
+                onPressed: () {
+                  pushWidgetWhileRemove(newPage: Layout(), context: context);
+                },
+              ),
               SizedBox(height: 40),
-              AppText.verysmalltitle('You will be required to add one mandatory profile pic and',weight: FontWeight.normal,),
-              AppText.verysmalltitle('Introductory video after payment',
+              AppText.verysmalltitle(
+                'You will be required to add one mandatory profile pic and',
                 weight: FontWeight.normal,
               ),
-
+              AppText.verysmalltitle(
+                'Introductory video after payment',
+                weight: FontWeight.normal,
+              ),
             ],
           ),
         ),

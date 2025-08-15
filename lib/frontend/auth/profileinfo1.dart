@@ -1,4 +1,6 @@
 import 'package:actapp/backend/api.dart';
+import 'package:actapp/frontend/auth/profileinfo2.dart';
+import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appCheckBox.dart';
 import 'package:actapp/widgets/appText.dart';
@@ -44,15 +46,20 @@ class _ProfileInfo1State extends State<ProfileInfo1> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: Center(
-            child: Container(
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                color: API.cardbg.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.0),
+          child: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Center(
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: API.cardbg.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Icon(Icons.arrow_back, size: 20),
               ),
-              child: Icon(Icons.arrow_back, size: 20),
             ),
           ),
         ),
@@ -236,7 +243,13 @@ class _ProfileInfo1State extends State<ProfileInfo1> {
                               ),
                               AppButton(
                                 text: "Next",
-                                onPressed: () {},
+                                onPressed: () {
+                                  slideRightWidget(
+                                    newPage: ProfileInfo2(),
+                                    context: context,
+                                  );
+
+                                },
                                 width: 100,
                               ),
                             ],

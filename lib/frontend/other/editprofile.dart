@@ -1,20 +1,19 @@
 import 'package:actapp/backend/api.dart';
-import 'package:actapp/frontend/auth/profileinfo3.dart';
-import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appCheckBox.dart';
 import 'package:actapp/widgets/appText.dart';
 import 'package:actapp/widgets/appTextFeild.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class ProfileInfo2 extends StatefulWidget {
-  const ProfileInfo2({super.key});
+class EditProfile extends StatefulWidget {
+  const EditProfile({super.key});
 
   @override
-  State<ProfileInfo2> createState() => _ProfileInfo2State();
+  State<EditProfile> createState() => _EditProfileState();
 }
 
-class _ProfileInfo2State extends State<ProfileInfo2> {
+class _EditProfileState extends State<EditProfile> {
   List<String> _selectedCategories = [];
   String? _selectedGender;
   bool _isChecked = false;
@@ -59,7 +58,7 @@ class _ProfileInfo2State extends State<ProfileInfo2> {
             ),
           ),
         ),
-        title: AppText.subtitle("Profile Info"),
+        title: AppText.subtitle("Edit Profile"),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -95,6 +94,47 @@ class _ProfileInfo2State extends State<ProfileInfo2> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText.smalltitle(
+                                'FirstName',
+                                weight: FontWeight.normal,
+                              ),
+                              SizedBox(height: 5),
+                              AppTextFeild(hintText: 'Enter First Name'),
+                            ],
+                          ),
+
+                          SizedBox(height: 10),
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Last Name',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          AppTextFeild(hintText: 'Enter Last Name'),
+                          SizedBox(height: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText.smalltitle(
+                                'Country geo loaction',
+                                weight: FontWeight.normal,
+                              ),
+                              SizedBox(height: 5),
+                              AppTextFeild(
+                                hintText: 'use your current location',
+                                prefixIcon: Icon(
+                                  LucideIcons.locateFixed,
+                                  size: 20,
+                                  color: API.linkcolor,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+
                           AppText.smalltitle(
                             'Category',
                             weight: FontWeight.normal,
@@ -359,55 +399,147 @@ class _ProfileInfo2State extends State<ProfileInfo2> {
                                 checkColor: Colors.white,
                                 borderColor: Colors.grey,
                               ),
+
                             ],
+                          ),
+                          AppText.smalltitle(
+                            'Skill',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildMultiSelect<String>(
+                            items: categoriesList,
+                            selectedItems: _selectedCategories,
+                            hintText: 'Select Skill',
+                            onConfirm: (values) {
+                              setState(() {
+                                _selectedCategories = values;
+                              });
+                            },
+                          ),
+
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Hair Color',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Hair Color',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
+                          ),
+
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Eye Color',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Eye Color',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Chest Size',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Chest Size',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          AppText.smalltitle('Hips', weight: FontWeight.normal),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Hips',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Waist',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Waist',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Dress Size',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Dress Size',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          AppText.smalltitle(
+                            'Voice Style',
+                            weight: FontWeight.normal,
+                          ),
+                          SizedBox(height: 5),
+                          API.buildDropdown(
+                            items: ['item1', 'item2', 'item3', 'item4'],
+                            hintText: 'Select Voice Style',
+                            selectedItem: _selectedGender,
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedGender = val;
+                              });
+                            },
                           ),
                           SizedBox(height: 50),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-
-                                 Container(
-                                    height: 12,
-                                    width: 12,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 6),
-
-                                  Container(
-                                    height: 12,
-                                    width: 24,
-                                    decoration: BoxDecoration(
-                                      color: API.appcolor,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Container(
-                                    height: 12,
-                                    width: 12,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              AppButton(
-                                text: "Next",
-                                onPressed: () {
-                            slideRightWidget(
-                                    newPage: ProfileInfo3(),
-                                    context: context,
-                                  );
-
-                                },
-                                width: 100,
+                              Expanded(
+                                child: AppButton(
+                                  text: "Save",
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  width: 100,
+                                ),
                               ),
                             ],
                           ),

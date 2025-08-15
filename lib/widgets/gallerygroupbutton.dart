@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class SlidingSegmentedControlInvitation extends StatefulWidget {
+class SlidingSegmentedControlGallery extends StatefulWidget {
   final Function(int) onClicked;
-  const SlidingSegmentedControlInvitation({Key? key, required this.onClicked}) : super(key: key);
+  const SlidingSegmentedControlGallery({Key? key, required this.onClicked})
+    : super(key: key);
 
   @override
-  _SlidingSegmentedControlInvitationState createState() =>
-      _SlidingSegmentedControlInvitationState();
+  _SlidingSegmentedControlGalleryState createState() =>
+      _SlidingSegmentedControlGalleryState();
 }
 
-class _SlidingSegmentedControlInvitationState extends State<SlidingSegmentedControlInvitation> {
+class _SlidingSegmentedControlGalleryState extends State<SlidingSegmentedControlGallery> {
   int selectedIndex = 0;
-  final List<String> labels = ["Accepted", "Rejected", "Pending"];
+  final List<String> labels = ["Images", "Videos", "Audios"];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class _SlidingSegmentedControlInvitationState extends State<SlidingSegmentedCont
       height: 40,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Stack(
@@ -57,7 +58,7 @@ class _SlidingSegmentedControlInvitationState extends State<SlidingSegmentedCont
                       labels[index],
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        color:  Colors.black,
+                        color: Colors.black,
                       ),
                     ),
                   ),

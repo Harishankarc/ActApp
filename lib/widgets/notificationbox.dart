@@ -2,29 +2,25 @@ import 'package:actapp/backend/api.dart';
 import 'package:actapp/widgets/appText.dart';
 import 'package:flutter/material.dart';
 
-class InvitationAcceptBox extends StatefulWidget {
+class NotificationBox extends StatefulWidget {
   final String title;
-  final String description;
   final String date;
-  final String day;
-  const InvitationAcceptBox({
+  const NotificationBox({
     super.key,
     required this.title,
-    required this.description,
     required this.date,
-    required this.day,
   });
 
   @override
-  State<InvitationAcceptBox> createState() => _InvitationAcceptBoxState();
+  State<NotificationBox> createState() => _NotificationBoxState();
 }
 
-class _InvitationAcceptBoxState extends State<InvitationAcceptBox> {
+class _NotificationBoxState extends State<NotificationBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-    width: double.infinity,
-      height: 90,
+      width: double.infinity,
+      height: 80,
       decoration: BoxDecoration(
         color: API.cardcolor,
         borderRadius: BorderRadius.circular(8),
@@ -38,34 +34,22 @@ class _InvitationAcceptBoxState extends State<InvitationAcceptBox> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText.smalltitle(widget.title),
-                AppText.verysmalltitle(
-                  widget.description,
-                  weight: FontWeight.normal,
-                ),
-              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [AppText.smalltitle(widget.title)],
             ),
           ),
-          Container(
-            width: 120,
-            decoration: BoxDecoration(
-              color: API.appcolor.withOpacity(0.8),
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(8),
-                bottomRight: Radius.circular(8),
-              ),
-            ),
+          Padding(
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppText.verysmalltitle(widget.date, weight: FontWeight.w600),
-                AppText.verysmalltitle(widget.day, weight: FontWeight.w600),
+                AppText.verysmalltitle(widget.date, weight: FontWeight.w400),
               ],
             ),
           ),

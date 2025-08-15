@@ -1,9 +1,16 @@
 import 'package:actapp/backend/api.dart';
+import 'package:actapp/frontend/auth/login.dart';
+import 'package:actapp/frontend/auth/profileinfo1.dart';
+import 'package:actapp/frontend/auth/resetpassword.dart';
+import 'package:actapp/frontend/other/aboutus.dart';
+import 'package:actapp/frontend/other/editprofile.dart';
+import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appCheckBox.dart';
 import 'package:actapp/widgets/appText.dart';
 import 'package:actapp/widgets/appTextFeild.dart';
 import 'package:actapp/widgets/detailsbox.dart';
+import 'package:actapp/widgets/gallerygroupbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -16,6 +23,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  bool isGalleryClicked = false;
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +38,7 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             Container(
-              height: 300,
+              height: 350,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: API.cardcolor,
@@ -45,6 +55,7 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(height: 30),
                     Container(
                       height: 100,
                       width: 100,
@@ -93,18 +104,55 @@ class _ProfileState extends State<Profile> {
                       color: API.appcolor,
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: API.appcolor, width: 1),
-                      ),
-                      alignment: Alignment.center,
-                      child: AppText.smalltitle(
-                        'Your Gallery',
-                        weight: FontWeight.w700,
-                      ),
+                    Row(
+                      children: [
+                        isGalleryClicked == true
+                            ? Center(
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    color: API.cardbg.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isGalleryClicked = false;
+                                      });
+                                    },
+                                    child: Icon(Icons.arrow_back, size: 20),
+                                  ),
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isGalleryClicked = true;
+                              });
+                            },
+                            child: Container(
+                              height: 45,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: API.appcolor,
+                                  width: 1,
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                              child: AppText.smalltitle(
+                                'Your Gallery',
+                                weight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -112,37 +160,169 @@ class _ProfileState extends State<Profile> {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  _buildOptions(
-                    icon: LucideIcons.rotateCcwKey300,
-                    label: 'Reset Password',
-                    onTap: () {},
-                  ),
-                  SizedBox(height: 10,),
-                  _buildOptions(
-                    icon: LucideIcons.squarePen300,
-                    label: 'Edit Profile',
-                    onTap: () {},
-                  ),
-                  SizedBox(height: 10,),
-                  _buildOptions(
-                    icon: LucideIcons.info300,
-                    label: 'About Us',
-                    onTap: () {},
-                  ),
-                  SizedBox(height: 10,),
-                  _buildOptions(
-                    icon: LucideIcons.power300,
-                    label: 'Logout',
-                    onTap: () {},
-                  ),
-                ],
-              ),
+              child: isGalleryClicked == false
+                  ? _buildOptionsGroup()
+                  : _buildGallery(),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildGallery() {
+    int itemCount = 5;
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: API.cardbg,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          SlidingSegmentedControlGallery(
+            onClicked: (val) {
+              setState(() {
+                selectedIndex = val;
+                print(val);
+              });
+            },
+          ),
+          if (selectedIndex == 0)
+            _buildImagesGridView(itemCount)
+          else if (selectedIndex == 1)
+            _buildVideosGridView(itemCount),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImagesGridView(int itemCount) {
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: itemCount + 1,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+      ),
+      itemBuilder: (context, index) {
+        if (index < itemCount) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          );
+        } else {
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.add, size: 32, color: Colors.black54),
+                    SizedBox(height: 4),
+                    Text(
+                      "Add Image",
+                      style: TextStyle(fontSize: 12, color: Colors.black54),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildVideosGridView(int itemCount) {
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: itemCount + 1,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+      ),
+      itemBuilder: (context, index) {
+        if (index < itemCount) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          );
+        } else {
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.add, size: 32, color: Colors.black54),
+                    SizedBox(height: 4),
+                    Text(
+                      "Add Videos",
+                      style: TextStyle(fontSize: 12, color: Colors.black54),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildOptionsGroup() {
+    return Column(
+      children: [
+        _buildOptions(
+          icon: LucideIcons.rotateCcwKey300,
+          label: 'Reset Password',
+          onTap: () {
+            slideRightWidget(newPage: ResetPassword(), context: context);
+          },
+        ),
+        SizedBox(height: 10),
+        _buildOptions(
+          icon: LucideIcons.squarePen300,
+          label: 'Edit Profile',
+          onTap: () {
+            slideRightWidget(newPage: EditProfile(), context: context);
+
+          },
+        ),
+        SizedBox(height: 10),
+        _buildOptions(
+          icon: LucideIcons.info300,
+          label: 'About Us',
+          onTap: () {
+            slideRightWidget(newPage: AboutUs(), context: context);
+          },
+        ),
+        SizedBox(height: 10),
+        _buildOptions(
+          icon: LucideIcons.power300,
+          label: 'Logout',
+          onTap: () {
+            pushWidgetWhileRemove(newPage: Login(), context: context);
+          },
+        ),
+      ],
     );
   }
 

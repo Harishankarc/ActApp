@@ -1,19 +1,19 @@
 import 'package:actapp/backend/api.dart';
-import 'package:actapp/frontend/auth/verificationotpemail.dart';
+import 'package:actapp/frontend/auth/profileinfo1.dart';
 import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appButton.dart';
 import 'package:actapp/widgets/appText.dart';
 import 'package:actapp/widgets/appTextFeild.dart';
 import 'package:flutter/material.dart';
 
-class VerificationOtp extends StatefulWidget {
-  const VerificationOtp({super.key});
+class VerificationOtpEmail extends StatefulWidget {
+  const VerificationOtpEmail({super.key});
 
   @override
-  State<VerificationOtp> createState() => _VerificationOtpState();
+  State<VerificationOtpEmail> createState() => _VerificationOtpEmailState();
 }
 
-class _VerificationOtpState extends State<VerificationOtp> {
+class _VerificationOtpEmailState extends State<VerificationOtpEmail> {
   final _controllers = List.generate(4, (_) => TextEditingController());
   final _focusNodes = List.generate(4, (_) => FocusNode());
 
@@ -46,7 +46,8 @@ class _VerificationOtpState extends State<VerificationOtp> {
           child: InkWell(
             onTap: (){
               Navigator.pop(context);
-            },
+            }
+            ,
             child: Center(
               child: Container(
                 height: 36,
@@ -94,7 +95,7 @@ class _VerificationOtpState extends State<VerificationOtp> {
               const SizedBox(height: 250, width: 300),
               const SizedBox(height: 20),
               AppText.smalltitle(
-                "Please enter OTP shared in your phone",
+                "Please enter OTP shared in your Email",
                 weight: FontWeight.w500,
               ),
               const SizedBox(height: 40),
@@ -119,11 +120,15 @@ class _VerificationOtpState extends State<VerificationOtp> {
                 ),
               ),
               const SizedBox(height: 20),
-              AppText.smalltitle("Resend OTP", weight: FontWeight.w500,color: API.linkcolor,),
+              AppText.smalltitle(
+                "Resend OTP",
+                weight: FontWeight.w500,
+                color: API.linkcolor,
+              ),
               const SizedBox(height: 100),
               AppButton(text: "Verify", onPressed: () {
                             slideRightWidget(
-                    newPage: VerificationOtpEmail(),
+                    newPage: ProfileInfo1(),
                     context: context,
                   );
 

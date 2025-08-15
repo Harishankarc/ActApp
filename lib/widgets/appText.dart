@@ -107,8 +107,7 @@ class AppText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle base =
-        Theme.of(context).textTheme.bodyMedium ??
-        const TextStyle(fontSize: 14, color: Colors.white);
+        Theme.of(context).textTheme.bodyMedium ?? const TextStyle();
 
     TextStyle merged = base.merge(style);
 

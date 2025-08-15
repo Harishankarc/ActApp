@@ -1,13 +1,11 @@
 import 'package:actapp/backend/api.dart';
-import 'package:actapp/widgets/appButton.dart';
-import 'package:actapp/widgets/appCheckBox.dart';
+import 'package:actapp/frontend/other/notification.dart';
+import 'package:actapp/routetransitions.dart';
 import 'package:actapp/widgets/appText.dart';
-import 'package:actapp/widgets/appTextFeild.dart';
 import 'package:actapp/widgets/pendinginvitationbox.dart';
 import 'package:actapp/widgets/upcomingeventbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -17,6 +15,10 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,34 +105,43 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                     ],
                   ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      const Icon(
-                        Icons.notifications_none,
-                        color: Colors.white,
-                        size: 28,
-                      ),
-                      Positioned(
-                        right: -2,
-                        top: -2,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Text(
-                            '4',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
+                  InkWell(
+                    onTap: (){
+                                                  slideDownWidget(
+                        newPage: NotificationPage(),
+                        context: context,
+                      );
+
+                    },
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        const Icon(
+                          Icons.notifications_none,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                        Positioned(
+                          right: -2,
+                          top: -2,
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Text(
+                              '4',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
